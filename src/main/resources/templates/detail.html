@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/detail.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="detail-box bg-white d-flex flex-wrap" th:object="${item}">
+            <div class="detail-box-left">
+                <div class="big-img">
+                    <img th:src="@{/images/{image}(image=${(item.image)})}" alt="Sản phẩm">
+                </div>
+                <div class="img-gallery"> 
+                    <div class="owl-box">
+                        <div class="owl-item">
+                            <img src="https://lacdau.com/media/product/250-5560-455679134_1159012535160290_4008123808677443072_n.jpg" alt="">
+                        </div>
+                        <div class="owl-item">
+                            <img src="https://lacdau.com/media/product/75-5560-456531753_1468291150555038_1319550865760537221_n.jpg" alt="">
+                        </div>
+                        <div class="owl-item">
+                            <img src="https://lacdau.com/media/product/75-5560-456419451_1204778307324409_9087268216346118684_n.jpg" alt="">
+                        </div>
+                        <div class="owl-item">
+                            <img src="https://lacdau.com/media/product/75-5560-455859015_1467469700638948_4401476803639653548_n.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-btn">
+                    <button class="owl-next">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="owl-prev">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="detail-box-middle">
+                <h1 class="pd-name" th:text="${item.name}"></h1>
+                <div class="pd-rating">
+                    Mã SP: 
+                    <span class="green text-uppercase" th:text="${item.productId}">&nbsp;</span>
+                    &nbsp;&nbsp;&nbsp; Lượt xem: 
+                    <b style="font-weight: 600;">&nbsp;183</b>
+                </div>
+                <div class="pd-price-group">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Giá khuyến mãi:</td>
+                                <td>
+                                    <span class="pd-price" th:text="${item.price}">
+                                        ₫
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pd-btn-cart">
+                    <a href="#">MUA NGAY</a>
+                    <a th:href="@{/cart/add/{id}(id=${item.productId})}">THÊM VÀO GIỎ</a>
+                </div>
+            </div>
+            <div class="detail-box-right">
+                <div class="box-item">
+                    <p class="title">CHÍNH SÁCH MUA HÀNG</p>
+                    <div class="item-list">
+                        <p class="item">
+                            <i class="icons icon-card"></i>
+                            <span>Thanh toán thuận tiện</span>
+                        </p>
+                        <p class="item">
+                            <i class=""></i>
+                            <span>Sản phẩm 100% chính hãng</span>
+                        </p>
+                        <p class="item">
+                            <i class=""></i>
+                            <span>Bảo hành nhanh chóng</span>
+                        </p>
+                        <p class="item">
+                            <i class=""></i>
+                            <span>Giao hàng toàn quốc</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="box-item">
+                    <p class="title">HOTLINE HỖ TRỢ</p>
+                    <div class="item-list">
+                        <span class="item">Hotline CSKH: 0349.296.461</span>
+                        <span class="item">Tư vấn mua hàng: 0349.296.461</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="detail-box">
+                    <p class="box-title">Đánh giá về sản phẩm</p>
+                    <div class="pd-comment-group">
+                        <div class="comment-container">
+                            <form action="#" class="form-post d-flex flex-wrap">
+                                <div class="comment-form-left">
+                                    <img src="https://lacdau.com/static/assets/default/images/no-avatar.png" alt="" width="56" height="56">
+                                </div>
+                                <div class="comment-form-right">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <textarea class="form-input" id="content" placeholder="Nội dung"></textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="name" class="inputText" placeholder="Tên (Bắt buộc)">
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="email" class="inputText" placeholder="Email (Bắt buộc)" value>
+                                                </td>   
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <a href="#" class="send-form">GỬI ĐI</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="detail-box">
+                    <p class="box-title">SẢN PHẨM TƯƠNG TỰ</p>
+                    <div class="p-related">
+                        <div class="p-item">
+                            <a href="#" class="p-img">
+                                <img src="https://lacdau.com/media/product/250-6112-trang1.jpg" alt="" width="108" height="108">
+                            </a>
+                            <div class="p-text">
+                                <a href="#" class="p-name">BÀN PHÍM CƠ ASESTEK AK87 RGB WHITE BLUE SWITCH</a>
+                                <div class="p-price-container">
+                                    <span class="p-price">
+                                        420.000
+                                        <u>đ</u>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-item">
+                            <a href="#" class="p-img">
+                                <img src="https://lacdau.com/media/product/250-6112-trang1.jpg" alt="" width="108" height="108">
+                            </a>
+                            <div class="p-text">
+                                <a href="#" class="p-name">BÀN PHÍM CƠ ASESTEK AK87 RGB WHITE BLUE SWITCH</a>
+                                <div class="p-price-container">
+                                    <span class="p-price">
+                                        420.000
+                                        <u>đ</u>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-item">
+                            <a href="#" class="p-img">
+                                <img src="https://lacdau.com/media/product/250-6112-trang1.jpg" alt="" width="108" height="108">
+                            </a>
+                            <div class="p-text">
+                                <a href="#" class="p-name">BÀN PHÍM CƠ ASESTEK AK87 RGB WHITE BLUE SWITCH</a>
+                                <div class="p-price-container">
+                                    <span class="p-price">
+                                        420.000
+                                        <u>đ</u>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

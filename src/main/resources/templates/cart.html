@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/cart.css">
+    <title>Cart Page</title>
+</head>
+
+<body>
+    <div class="cart-page container">
+        <div class="cart-items-container">
+            <div class="cart-item-header">
+                <div class="header-title d-flex align-items-center justify-content-between font-600">
+                    <p class="m-0"> THÔNG TIN GIỎ HÀNG </p>
+                    <div>
+                        <a href="#" class="goHome d-inline-block">
+                            <i class="fa-solid fa-arrow-left"></i>
+                            CHỌN TIẾP SẢN PHẨM KHÁC
+                        </a>
+                        <a th:href="@{/cart/clear}">
+                            XOÁ GIỎ HÀNG
+                        </a>
+                    </div>
+                </div>
+                <div class="col-header cart-col-row text-15 font-300">
+                    <div class="cart-col-1"> Sản phẩm </div>
+                    <div class="cart-col-2"> Đơn giá </div>
+                    <div class="cart-col-3"> Số lượng </div>
+                    <div class="cart-col-4"> Số tiền </div>
+                    <div class="cart-col-5"> Thao tác </div>
+                </div>
+            </div>
+            <div class="cart-item-body">
+            	<div th:each="item : ${items}">
+	                <div class="item cart-col-row">
+	                    <div class="cart-col-1">
+	                        <a href="#" class="img">
+	                            <img th:src="@{/images/{image}(image=${item.productImage})}">
+	                        </a>
+	                        <div class="text">
+	                            <a href="#" class="d-inline-block font-700"><span th:text="${item.productName}"></span>
+	                            </a>
+	                            <span class="d-block p-info"> Mã sản phẩm: <span th:text="${item.productId}"></span> </span>
+	                        </div>
+	                    </div>
+	                    <div class="cart-col-2">
+	                        <input type="hidden" class="buy-price" data-price="360000" th:text="${item.productPrice}">
+	                         đ
+	                    </div>
+	                    <div class="cart-col-3 clearfix">
+	                        <a th:href="@{/cart/update/{id}/{pre}(id=${item.productId}, pre=-1)}" class="quantity-change" data-value="-1"> - </a>
+	                        <input type="text" class="quantity-buy" th:value="${item.quantity}" data-stock="998">
+	                        <a th:href="@{/cart/update/{id}/{pre}(id=${item.productId}, pre=1)}" class="quantity-change" data-value="1"> + </a>
+	                    </div>
+	                    <div class="cart-col-4 font-600 red">
+	                        <span class="total-item-price" th:text="${item.totalPrice}">
+	                         
+	                        </span> đ
+	                    </div>
+	                    <div class="cart-col-5">
+	                        <a th:href="@{/cart/remove/{id}(id=${item.productId})}" class="delete-item"> <i class="fa-solid fa-trash-can" aria-hidden="true"></i> Xoá </a>
+	                    </div>
+	                </div>
+	        	</div>
+            </div>
+        </div>
+        <div class="cart-customer-container clearfix d-block">
+            <div class="customer-left">
+                <p class="title red font-600 text-15"> ĐỊA CHỈ NHẬN HÀNG </p>
+                <div class="d-flex flex-wrap">
+                    <div class="form-info-group">
+                        <input type="text" placeholder="Họ và tên">
+
+                        <input type="text" placeholder="Email">
+
+                        <input type="text" placeholder="Số điện thoại">
+
+                        <select class="">
+                            <option value="0">Tỉnh/Thành phố</option>
+                        </select>
+
+                        <select id="district-holder">
+                            <option value="0">Quận/Huyện</option>
+                        </select>
+
+                        <input type="text" placeholder="Toà nhà, Tên đường...">
+                    </div>
+
+                    <div class="form-info-group clearfix">
+                        <textarea placeholder="Nhập ghi chú cho chúng tôi"></textarea>
+                        <div class="cart-btn-group clearfix">
+                            <a href="#"><i class="fa-solid fa-image" aria-hidden="true"></i> TẢI ẢNH ĐƠN HÀNG</a>
+                            <a href="#"><i class="fa-solid fa-print" aria-hidden="true"></i> IN BÁO GIÁ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="customer-right">
+                <p class="title red font-600 text-15"> HÌNH THỨC THANH TOÁN </p>
+                <div class="payment" style="margin-bottom:24px">
+                    <label class="label-container">
+                        <input type="radio" name="pay_method" value="1" checked>
+                        <span class="checkmark"></span>
+                        <span>Thanh toán khi nhận hàng - COD</span>
+                        <div class="payment-detail" style="display: none;"></div>
+                    </label>
+                    <label class="label-container">
+                        <input type="radio" name="pay_method" value="2">
+                        <span class="checkmark"></span>
+                        <span>Thanh toán trước qua chuyển khoản</span>
+                        <div class="payment-detail" style="display: none;">Ngân hàng</div>
+                    </label>
+                </div>
+                <div class="text-right text-13 cart-total-price-group">
+                    Tổng tiền hàng (<span class="red" id="js-total-quantity"><span th:text="${getCount}"></span> sản phẩm</span>):
+                    <b class="red text-22 font-600">
+                      <span class="total-cart-price" th:text="${totalPrice}">đ</span>
+                    </b>
+                </div>
+                <div class="clearfix cart-button-buy" style="margin-top:12px">
+                    <button type="submit" class="w-100 js-send-cart font-weight-bold text-18"> ĐẶT MUA NGAY </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

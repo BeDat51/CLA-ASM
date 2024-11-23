@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+import lombok.ToString.Exclude;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,10 +26,12 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @ToString.Exclude // Exclude category to avoid StackOverflow
     private Category category;
 
     @ManyToOne
     @JoinColumn(name = "brand_id")
+    @ToString.Exclude // Exclude brand to avoid StackOverflow
     private Brand brand;
 
     @Column(name = "created_at", updatable = false)
@@ -39,11 +43,14 @@ public class Product {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "product")
+    @ToString.Exclude // Exclude cartItems to avoid StackOverflow
     private List<CartItem> cartItems;
 
     @OneToMany(mappedBy = "product")
+    @ToString.Exclude // Exclude orderItems to avoid StackOverflow
     private List<OrderItem> orderItems;
 
+    @ToString.Include(name = "reviews")
     @OneToMany(mappedBy = "product")
     private List<Review> reviews;
 
